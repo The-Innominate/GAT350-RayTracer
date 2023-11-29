@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Canvas.h"
 #include <iostream>
 
 
@@ -48,4 +49,12 @@ bool Renderer::CreateWindow(const std::string& title, int width, int height)
 		}
 
 	return true;
+}
+
+void Renderer::PresentCanvas(const Canvas& canvas)
+{
+	//<SDL_RenderCopy(https://wiki.libsdl.org/SDL_RenderCopyLinks to an external site.)>
+	SDL_RenderCopy(m_renderer, canvas.m_texture, nullptr, nullptr);
+	//<SDL_RenderPresent(https://wiki.libsdl.org/SDL_RenderPresentLinks to an external site.)>
+	SDL_RenderPresent(m_renderer);
 }

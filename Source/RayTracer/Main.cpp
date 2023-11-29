@@ -1,5 +1,9 @@
 #include <iostream>
 #include "Renderer.h"
+#include "Canvas.h"
+#include "Color.h"
+#include "Random.h"
+
 using namespace std;
 
 //int main(int argc, char* argv[])
@@ -17,6 +21,7 @@ int main(int, char**)
 	Renderer renderer = Renderer();
 	renderer.Initialize();
 	renderer.CreateWindow("RayTracer", 400, 300);
+	Canvas canvas(400, 300, renderer);
 
 		bool quit = false;
 	while (!quit)
@@ -29,7 +34,13 @@ int main(int, char**)
 			quit = true;
 			break;
 		}
+		canvas.Clear({ 0, 0, 0, 1 });
+		for (int i = 0; i < 1000; i++) canvas.DrawPoint({ random01() * canvas.GetSize().x, random01() * canvas.GetSize().y}, {random01(), random01(), random01(), 1});
+		canvas.Update();
+
+		renderer.PresentCanvas(canvas);
 	}
+
 
 	//<shutdown renderer>
 	renderer.Shutdown();
